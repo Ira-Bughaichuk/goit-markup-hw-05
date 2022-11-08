@@ -58,7 +58,9 @@ p{
 .link{
     display: block;
     text-decoration: none;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .image{
     display: block;
 }
@@ -70,7 +72,7 @@ p{
 }
 
 .page-header {
-   /* padding: 24px 0;*/
+  
     border-bottom: 1px solid var(--header-border-color);
 }
 
@@ -99,7 +101,13 @@ p{
 }
 .site-nav{
     display: flex;
-  
+}
+.site-nav .site-item:not(:last-child) {
+    margin-right: 50px;
+}
+
+.site-item {
+    position: relative;
 }
 .site-nav .link{
     color: var(--title-color);
@@ -107,41 +115,43 @@ p{
     line-height: 1.4; /*16/14=1.142*/
     letter-spacing: 0.02em;
     text-decoration: none;
+    display: inline-block;
     padding: 32px 0; /*щоб задати псевдоелемент*/
 } 
-.site-nav .link.current {
-    color: var(--accent-color);
-}
-
-.site-nav .site-item:not(:last-child) {
-    margin-right: 50px;
-}
 .site-nav .link:hover,
 .site-nav .link:focus {
     color: var(--accent-color);
 }
-.site-item{
-    position: relative;
+.site-nav .link.current {
+    color: var(--accent-color);
 }
+.site-link::after, /*щоб анімувати підкреслення*/
 .current::after{
     content: "";
     display: block;
     position: absolute;
-    width: 100%;
-    right: 0;
-    bottom:0; /*відступ вниз*/
+    left: 0;
+    bottom: -1px; /*бо ще є бордер у худера 1px*/
+
     height: 4px;
     background-color: var(--accent-color);
     border-radius: 2px;
-    transition: width 250ms (0.4, 0, 0.2, 1);/*&&&&&&&&*/
+
+    transition: width 250ms cubic-bezier(0.4, 0, 0.2, 1);/*щоб при ховері ширина плавно збільшувалась*/
+    width: 0; /* щоб збільшувалась ширина при ховер*/
 }
-.site-nav .link:hover .current::after,
-.site-nav .link:focus .current::after{
+/* щоб анімувати підкреслення для лінків усіх*/
+.site-link::after{
+    width: 0;
+}
+/*для карент стала ширина іншим при наведені збільшується*/
+.site-link:hover::after,
+.site-link:focus::after,
+.site-link.current::after{
     width: 100%;
-   /* display: block;*/
 }
 
-
+/*контакти*/
 .contact-nav{
     display: flex; 
     margin-left: auto;   
@@ -283,6 +293,7 @@ p{
 .work-item{
     position: relative;
     width: 370px;
+    overflow: hidden; /*скрити все за межами, щоб добре працював ховер*/
 }
 .work-hidden{
     position: absolute;
@@ -299,41 +310,18 @@ p{
     text-transform: uppercase;
     background-color: rgba(47, 48, 58, 0.8);
     
-    /*transform: translateY(100%);
-    transition: transform 250ms (0.4, 0, 0.2, 0);
-    overflow: hiden;*/
-    
-    
-    opacity: 0;
-}
-.work-hidden:hover{
-    opacity:1;
-   /* transform: translate(0, 0);*/
-} 
-/*
-.work-hidden::before{
-    content: "";
-   display: inline-block;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-   
-    height: 70px;
-    width: 100%;
-    
-    opacity: 0;
-}
+    opacity: 1;
 
-.work-image:hover .work-hidden{
-    opacity: 1;
-  
-    transform: translateY(100%);
-}*/
-/*
-.work-image:hover ::before { 
-    opacity: 1;
-    transform: translateY(-100%);
-}*/
+    /*для ховера 
+    transform: translateY(100%); 
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    */ 
+}
+/*ховер на псевдо елемент
+.work-item:hover .work-hidden{
+        opacity: 1;
+        transform: translateY(0);
+    }*/
 /*-------------*/
 
 /*teams*/
@@ -394,9 +382,11 @@ p{
     color: inherit;
     border-radius: 50%;
     text-decoration: none;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .team-icon{
     fill: currentColor;
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .team-icon-link:hover,
 .team-icon-link:focus{
@@ -449,7 +439,6 @@ p{
     cursor: pointer;
 }
 .portfolio-item:hover{
-
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 .portfolio-list{
@@ -471,7 +460,6 @@ p{
     font-size: 18px;
     line-height: 2;
     letter-spacing: 0.06em;
-
 }
 .portfolio-content .title.link:not(:last-child){
     margin-bottom: 4px;
@@ -481,6 +469,37 @@ p{
     font-size: 16px;
     line-height: 1.88;
 }
+.portfolio-item{
+    
+}
+.image-wrapper{
+    position: relative;
+    overflow: hidden;
+
+}
+.portfolio-hidden-text{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    padding: 63px 24px;
+    background-color: var(--accent-color);
+    
+    color: var(--primary-text-color);
+    font-family: 'Roboto';
+    font-size: 18px;
+    line-height: 1.56;
+
+    transform: translateY(100%);
+    transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.portfolio-link:hover .portfolio-hidden-text{
+    transform: translateY(0);
+}
+
+/*clients*/
 .section-clients{
     padding: 94px 0;
 }
@@ -503,7 +522,8 @@ p{
     align-items: center;
     justify-content: center;
     border: 1px solid var(--client-icon-color);
-    border-radius: 4px;   
+    border-radius: 4px;
+    transition: color, fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .client-icon{
     fill: currentColor;
@@ -517,11 +537,12 @@ p{
     fill: var(--accent-color);
 }
 
-/**/
-.portfolio-hidden{
+/*
+.portfolio-hidden {
     position: relative;
 }
-.portfolio-hidden-text{
+
+.portfolio-hidden-text {
     position: absolute;
     top: 0;
     left: 0;
@@ -533,13 +554,12 @@ p{
     font-family: 'Roboto';
     font-size: 18px;
     line-height: 1.56;
-    color:var(--primary-text-color);
+    color: var(--primary-text-color);
     overflow: auto;
 }
-.portfolio-hidden:hover .portfolio-hidden-text{
 
-
-}
+.portfolio-hidden:hover .portfolio-hidden-text {}
+*/
 
 /*
 .client-item:hover,
@@ -626,19 +646,19 @@ fill: var(--accent-color);
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    color:var(--primary-text-color);
+    /*color: var(--primary-text-color);*/
     background-color: var(--footer-icon-baground-color);
    
 }
 .footer-link{
     display: flex;
-    /*justify-content: center;
-    align-content: center;*/
-    color: inherit;
+    color: var(--primary-text-color);
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
 }
 .footer-icon{
     fill: currentColor;
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .footer-item:hover,
 .footer-item:focus{
@@ -678,6 +698,7 @@ fill: var(--accent-color);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
+
 .backdrop.is-hidden{
     visibility: hidden;
     pointer-events: none;
@@ -693,7 +714,7 @@ fill: var(--accent-color);
     background: var(--primary-background-color);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
-
+    transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .close-modal::before,
 .close-modal:after{
@@ -706,16 +727,14 @@ fill: var(--accent-color);
     height: 3px;
     background-color: var(--black-color);
 
-   transition: border-color 250s (0.4, 0, 0.2, 1);
+   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .close-modal::before {
     transform: translate(-50%, -50%) rotate(-45deg);
-    transition:background-color 250s (0.4, 0, 0.2, 1);
 }
 
 .close-modal::after {
-    transform: translate(-50%, -50%) rotate(45deg);
-    transition: background-color 250s (0.4, 0, 0.2, 1);
+    transform: translate(-50%, -50%) rotate(45deg);  
 }
 
 .close-modal:hover,
@@ -729,14 +748,13 @@ fill: var(--accent-color);
     background-color: var(--accent-color);
 }
 
-
+/* щоб хрести при надені був лінією одною
 .close-modal:hover::after,
 .close-modal:hover::before,
 .close-modal:focus::after,
 .close-modal:focus::before {
-   /* transform: translate(-50%, -50%) rotate(0deg);*/
-    transform: background-color 250ms (0.4, 0, 0.2, 1);
-}
+   transform: translate(-50%, -50%) rotate(0deg);
+}*/
 
 
 
