@@ -74,7 +74,6 @@ p{
 }
 
 .page-header {
-  
     border-bottom: 1px solid var(--header-border-color);
 }
 
@@ -163,8 +162,7 @@ p{
 }
 .contact-link{
     display: flex;
-    justify-content: center;
-    align-content: center;
+    align-items: center;
     color: inherit;  
 }
 .contact-link{
@@ -333,6 +331,7 @@ p{
     justify-content: center;
 }
 .team-item{
+    background-color: var(--primary-background-color);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 0px 0px 4px 4px;
 }
@@ -498,6 +497,7 @@ p{
     transform: translateY(100%);
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.portfolio-link:focus .portfolio-hidden-text,
 .portfolio-link:hover .portfolio-hidden-text{
     transform: translateY(0);
 }
@@ -651,6 +651,7 @@ fill: var(--accent-color);
     border-radius: 50%;
     /*color: var(--primary-text-color);*/
     background-color: var(--footer-icon-baground-color);
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
    
 }
 .footer-link{
@@ -719,6 +720,25 @@ fill: var(--accent-color);
     border-radius: 50%;
     transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+.icon-close{
+   position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    fill:var(--black-color);
+}
+
+.close-modal:hover .icon-close,
+.close-modal:focus .icon-close{
+    fill: var(--accent-color);
+}
+.close-modal:hover,
+.close-modal:focus {
+    border-color: var(--accent-color);
+}
+/* створення хрестика
 .close-modal::before,
 .close-modal:after{
     content: "";
@@ -750,7 +770,7 @@ fill: var(--accent-color);
 .close-modal:focus::before {
     background-color: var(--accent-color);
 }
-
+*/
 /* щоб хрести при надені був лінією одною
 .close-modal:hover::after,
 .close-modal:hover::before,
