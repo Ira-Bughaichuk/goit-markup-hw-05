@@ -117,7 +117,7 @@ p{
     letter-spacing: 0.02em;
     text-decoration: none;
     display: inline-block;
-    padding: 32px 0; /*щоб задати псевдоелемент*/
+    padding: 30px 0; /*щоб задати псевдоелемент*/
 } 
 .site-nav .link:hover,
 .site-nav .link:focus {
@@ -707,7 +707,7 @@ fill: var(--accent-color);
     visibility: hidden;
     pointer-events: none;
 }
-
+/*-----------------*/
 .close-modal{
     position: absolute;
     top: 8px;
@@ -779,7 +779,20 @@ fill: var(--accent-color);
    transform: translate(-50%, -50%) rotate(0deg);
 }*/
 
+/*!!!!!!щоб скривати елемент!!!!
+.hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
 
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+} */
 
 
 
